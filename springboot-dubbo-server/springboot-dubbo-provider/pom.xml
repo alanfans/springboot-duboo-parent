@@ -51,15 +51,7 @@
 			<groupId>org.apache.zookeeper</groupId>
 			<artifactId>zookeeper</artifactId>
 		</dependency>
-		<!--<dependency>-->
-			<!--<groupId>com.github.sgroschupf</groupId>-->
-			<!--<artifactId>zkclient</artifactId>-->
-		<!--</dependency>-->
 
-		<dependency>
-			<groupId>org.apache.commons</groupId>
-			<artifactId>commons-dbcp2</artifactId>
-		</dependency>
 
 		<dependency>
 			<groupId>org.apache.curator</groupId>
@@ -71,7 +63,7 @@
 		</dependency>
 
 		<dependency>
-			<groupId>com.example.server.api</groupId>
+			<groupId>com.example.server</groupId>
 			<artifactId>springboot-dubbo-api</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>

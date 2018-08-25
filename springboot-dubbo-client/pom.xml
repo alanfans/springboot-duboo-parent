@@ -54,7 +54,7 @@
 		</dependency>
 
 		<dependency>
-			<groupId>com.example.server.api</groupId>
+			<groupId>com.example.server</groupId>
 			<artifactId>springboot-dubbo-api</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
