@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.example.demo.api.model.User;
+import com.example.demo.api.service.MailService;
 import com.example.demo.api.service.UserService;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -21,6 +22,9 @@ public class UserController {
     @Reference
     UserService userService;
 
+    @Reference
+    MailService mailService;
+
     @RequestMapping("/find")
     @ResponseBody
     public User findOneById(Integer id){
@@ -30,5 +34,10 @@ public class UserController {
             user = new User();
         }
         return user;
+    }
+
+    @RequestMapping("/sendMail")
+    public void sendMail(){
+        mailService.sendSimpleMail();
     }
 }
