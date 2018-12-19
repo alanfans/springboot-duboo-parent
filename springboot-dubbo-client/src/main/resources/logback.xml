@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration debug="false" scan="true" scanPeriod="1 seconds">
+    <include resource="org/springframework/boot/logging/logback/base.xml" />
+    <!-- <jmxConfigurator/> -->
+    <contextName>logback</contextName>
+
+    <!--<property name="log.path" value="E:\\123456\\logback.log" />-->
+
+    <!--<property name="log.pattern"-->
+              <!--value="%d{yyyy-MM-dd HH:mm:ss.SSS} -%5p ${PID} -&#45;&#45; [%15.15t] %-40.40logger{39} : %m%n" />-->
+
+
+    <!--<appender name="file"-->
+              <!--class="ch.qos.logback.core.rolling.RollingFileAppender">-->
+        <!--<file>${log.path}</file>-->
+
+        <!--<encoder>-->
+            <!--<pattern>${log.pattern}</pattern>-->
+        <!--</encoder>-->
+
+        <!--<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">-->
+
+            <!--<fileNamePattern>info-%d{yyyy-MM-dd}-%i.log-->
+            <!--</fileNamePattern>-->
+
+            <!--<timeBasedFileNamingAndTriggeringPolicy-->
+                    <!--class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">-->
+
+                <!--<maxFileSize>10MB</maxFileSize>-->
+            <!--</timeBasedFileNamingAndTriggeringPolicy>-->
+            <!--<maxHistory>10</maxHistory>-->
+        <!--</rollingPolicy>-->
+
+    <!--</appender>-->
+
+    <!--<appender name="socket"-->
+              <!--class="net.logstash.logback.appender.LogstashSocketAppender">-->
+        <!--<filter class="ch.qos.logback.classic.filter.ThresholdFilter">-->
+            <!--<level>INFO</level>-->
+        <!--</filter>-->
+        <!--<host>10.10.129.35</host>-->
+        <!--<port>4569</port>-->
+        <!--<customFields>{"appname":"dubbo-client"}</customFields>-->
+    <!--</appender>-->
+    <!--<appender name="LOGSTASH"-->
+              <!--class="net.logstash.logback.appender.LogstashTcpSocketAppender">-->
+        <!--<destination>IP:PORT</destination>-->
+        <!--&lt;!&ndash; encoder必须配置,有多种可选 &ndash;&gt;-->
+        <!--<encoder charset="UTF-8" class="net.logstash.logback.encoder.LogstashEncoder">-->
+            <!--<customFields>{"appname":"dubbo-client"}</customFields>-->
+        <!--</encoder>-->
+        <!--&lt;!&ndash; <destination>destination1.domain.com:4560</destination>-->
+            <!--<destination>destination2.domain.com:4560</destination>-->
+            <!--<destination>destination3.domain.com:4560</destination> &ndash;&gt;-->
+        <!--<connectionStrategy>-->
+            <!--<roundRobin>-->
+                <!--<connectionTTL>5 minutes</connectionTTL>-->
+            <!--</roundRobin>-->
+        <!--</connectionStrategy>-->
+    <!--</appender>-->
+
+
+       <!--<root level="info">-->
+    <!--&lt;!&ndash; <appender-ref ref="file" /> &ndash;&gt;-->
+    <!--<appender-ref ref="socket" />-->
+    <!--&lt;!&ndash; <appender-ref ref="LOGSTASH" /> &ndash;&gt;-->
+    <!--</root>-->
+
+    <appender name="LOGSTASH" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
+        <destination>51.68.88.200:9250</destination>
+        <encoder charset="UTF-8" class="net.logstash.logback.encoder.LogstashEncoder" >
+            <customFields>{"appname":"dubbo-client"}</customFields>
+        </encoder>
+    </appender>
+
+    <root level="INFO">
+        <appender-ref ref="LOGSTASH" />
+        <appender-ref ref="CONSOLE" />
+    </root>
+
+</configuration>

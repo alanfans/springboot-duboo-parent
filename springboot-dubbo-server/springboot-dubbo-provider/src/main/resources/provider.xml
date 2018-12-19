@@ -8,7 +8,7 @@ http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
     <dubbo:application name="demo-provider" />
 
     <!-- 使用zookeeper注册中心暴露服务地址 -->
-    <dubbo:registry protocol="zookeeper" address="107.161.95.97:2181" timeout="60000"/>
+    <dubbo:registry protocol="zookeeper" address="51.68.88.200:2181" timeout="60000"/>
 
     <!-- 用dubbo协议在20880端口暴露服务 -->
     <dubbo:protocol name="dubbo" port="20880" />
