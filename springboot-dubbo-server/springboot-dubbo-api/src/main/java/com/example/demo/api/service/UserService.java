@@ -7,5 +7,5 @@ import com.example.demo.api.model.User;
  */
 public interface UserService {
 
-    User findOneById(Integer id);
+    User findOneById(Long id);
 }

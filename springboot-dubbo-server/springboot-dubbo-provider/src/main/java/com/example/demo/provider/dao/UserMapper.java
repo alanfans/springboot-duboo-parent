@@ -7,5 +7,5 @@ import com.example.demo.api.model.User;
  */
 public interface UserMapper {
 
-    User findOneById(Integer id);
+    User findOneById(Long id);
 }

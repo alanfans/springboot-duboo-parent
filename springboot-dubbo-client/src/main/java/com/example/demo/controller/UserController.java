@@ -31,7 +31,7 @@ public class UserController {
 
     @RequestMapping("/find")
     @ResponseBody
-    public User findOneById(Integer id){
+    public User findOneById(Long id){
         logger.info("------UserController--------id------" + id);
         logger.debug("This is a debug message-----UserController--------id------" + id);
         logger.info("This is an info message-----UserController--------id------" + id);
