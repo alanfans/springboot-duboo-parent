@@ -6,6 +6,7 @@ import org.mybatis.spring.annotation.MapperScan;
 import org.redisson.api.RBucket;
 import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
+import org.springframework.boot.SpringApplication;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.ImportResource;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -21,7 +22,7 @@ public class SpringboogDubboProviderApplicationTests {
 	}
 
 	public static void main(String[] args) {
-		com.alibaba.dubbo.container.Main.main(args);
+		SpringApplication.run(SpringboogDubboProviderApplicationTests.class,args);
 	}
 
 	@Resource

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://code.alibabatech.com/schema/dubbo
-http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+       xmlns:dubbo="http://dubbo.apache.org/schema/dubbo"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://dubbo.apache.org/schema/dubbo
+http://dubbo.apache.org/schema/dubbo/dubbo.xsd">
     <!-- 提供方应用信息，用于计算依赖关系 -->
     <dubbo:application name="demo-provider">
         <dubbo:parameter key="qos.enable" value="true" />
@@ -20,7 +20,7 @@ http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
 
     <!-- 暴露dubbo服务的方式一-->
     <!-- 使用注解方式暴露接口，会自动扫描package下所有包中dubbo相关的注解，这样就不用在xml中再针对每个服务接口配置dubbo:service interface-->
-    <dubbo:annotation package="com.example"/>
+    <!--<dubbo:annotation package="com.example"/>-->
 
     <!--另外一种是全局新修改的办法（timeout时间可以自己调整）-->
     <dubbo:provider delay="-1" timeout="120000" retries="0"/>

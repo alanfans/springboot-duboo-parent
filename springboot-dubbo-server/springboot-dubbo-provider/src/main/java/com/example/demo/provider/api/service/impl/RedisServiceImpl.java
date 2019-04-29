@@ -1,8 +1,8 @@
 package com.example.demo.provider.api.service.impl;
 
-import com.alibaba.dubbo.config.annotation.Service;
 import com.example.demo.api.service.RedisService;
 import jodd.util.RandomString;
+import org.apache.dubbo.config.annotation.Service;
 import org.redisson.api.RBucket;
 import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;

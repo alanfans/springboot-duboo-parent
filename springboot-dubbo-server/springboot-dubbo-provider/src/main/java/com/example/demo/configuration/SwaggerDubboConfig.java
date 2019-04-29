@@ -1,6 +1,5 @@
 package com.example.demo.configuration;
 
-import com.alibaba.dubbo.config.spring.context.annotation.EnableDubboConfig;
 //import com.deepoove.swagger.dubbo.annotations.EnableDubboSwagger;
 import org.springframework.context.annotation.Configuration;
 
