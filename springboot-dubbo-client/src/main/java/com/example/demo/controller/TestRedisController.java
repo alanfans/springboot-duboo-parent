@@ -1,7 +1,7 @@
 package com.example.demo.controller;
 
-import com.alibaba.dubbo.config.annotation.Reference;
 import com.example.demo.api.service.RedisService;
+import org.apache.dubbo.config.annotation.Reference;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;

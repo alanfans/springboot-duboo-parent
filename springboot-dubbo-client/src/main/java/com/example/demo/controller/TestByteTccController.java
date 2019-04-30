@@ -1,7 +1,7 @@
 package com.example.demo.controller;
 
-import com.alibaba.dubbo.config.annotation.Reference;
 import com.example.demo.api.service.AccountService;
+import org.apache.dubbo.config.annotation.Reference;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;

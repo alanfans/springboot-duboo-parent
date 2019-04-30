@@ -1,17 +1,14 @@
 package com.example.demo;
 
+import org.apache.dubbo.config.spring.context.annotation.EnableDubbo;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ImportResource;
 
 
 @SpringBootApplication
 @MapperScan("com.example.demo.provider.dao")
-@ImportResource("classpath:provider.xml")
+@EnableDubbo(scanBasePackages = "com.example")
 public class SpringboogDubboProviderApplication {
 
 	public static void main(String[] args) throws InterruptedException{

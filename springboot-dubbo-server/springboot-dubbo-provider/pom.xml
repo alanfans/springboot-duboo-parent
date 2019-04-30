@@ -79,9 +79,14 @@
 			<groupId>org.redisson</groupId>
 			<artifactId>redisson-spring-data-20</artifactId>
 		</dependency>
+
 		<dependency>
 			<groupId>com.ibm.cos</groupId>
 			<artifactId>ibm-cos-java-sdk</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.ibm.mq</groupId>
+			<artifactId>com.ibm.mq.allclient</artifactId>
 		</dependency>
 
 		<dependency>

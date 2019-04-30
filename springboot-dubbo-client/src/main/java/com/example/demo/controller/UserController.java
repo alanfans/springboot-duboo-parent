@@ -1,9 +1,9 @@
 package com.example.demo.controller;
 
-import com.alibaba.dubbo.config.annotation.Reference;
 import com.example.demo.api.model.User;
 import com.example.demo.api.service.MailService;
 import com.example.demo.api.service.UserService;
+import org.apache.dubbo.config.annotation.Reference;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.RequestMapping;

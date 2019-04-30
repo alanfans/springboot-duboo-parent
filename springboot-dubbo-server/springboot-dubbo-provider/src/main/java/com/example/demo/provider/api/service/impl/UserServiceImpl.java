@@ -1,9 +1,9 @@
 package com.example.demo.provider.api.service.impl;
 
-import com.alibaba.dubbo.config.annotation.Service;
 import com.example.demo.api.service.UserService;
 import com.example.demo.provider.dao.UserMapper;
 import com.example.demo.api.model.User;
+import org.apache.dubbo.config.annotation.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
