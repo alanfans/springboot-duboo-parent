@@ -1,3 +1,4 @@
+/*
 package com.example.demo.provider.cos;
 
 import com.ibm.cloud.objectstorage.ClientConfiguration;
@@ -20,9 +21,11 @@ public class CosExample {
 
     private static AmazonS3 _cosClient;
 
-    /**
+    */
+/**
      * @param args
-     */
+     *//*
+
     public static void main(String[] args)
     {
 
@@ -46,13 +49,15 @@ public class CosExample {
         listBuckets(_cosClient);
     }
 
-    /**
+    */
+/**
      * @param api_key
      * @param service_instance_id
      * @param endpoint_url
      * @param location
      * @return AmazonS3
-     */
+     *//*
+
     public static AmazonS3 createClient(String api_key, String service_instance_id, String endpoint_url, String location)
     {
         AWSCredentials credentials;
@@ -67,10 +72,12 @@ public class CosExample {
         return cosClient;
     }
 
-    /**
+    */
+/**
      * @param bucketName
      * @param cosClient
-     */
+     *//*
+
     public static void listObjects(String bucketName, AmazonS3 cosClient)
     {
         System.out.println("Listing objects in bucket " + bucketName);
@@ -81,19 +88,23 @@ public class CosExample {
         System.out.println();
     }
 
-    /**
+    */
+/**
      * @param bucketName
      * @param cosClient
-     */
+     *//*
+
     public static void createBucket(String bucketName, AmazonS3 cosClient)
     {
 //        cosClient.createBucket(bucketName, storageClass);
         cosClient.createBucket(bucketName);
     }
 
-    /**
+    */
+/**
      * @param cosClient
-     */
+     *//*
+
     public static void listBuckets(AmazonS3 cosClient)
     {
         System.out.println("Listing buckets");
@@ -104,3 +115,4 @@ public class CosExample {
         System.out.println();
     }
 }
+*/

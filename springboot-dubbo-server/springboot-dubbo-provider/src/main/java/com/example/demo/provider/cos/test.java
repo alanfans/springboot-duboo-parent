@@ -1,3 +1,4 @@
+/*
 package com.example.demo.provider.cos;
 
 import com.ibm.cloud.objectstorage.ClientConfiguration;
@@ -48,4 +49,4 @@ public class test {
 
         return cos;
     }
-}
+}*/

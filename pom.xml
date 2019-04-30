@@ -148,10 +148,21 @@
 				<version>${bytetcc.version}</version>
 			</dependency>
 
+			<!--<dependency>-->
+				<!--<groupId>com.ibm.cos</groupId>-->
+				<!--<artifactId>ibm-cos-java-sdk</artifactId>-->
+				<!--<version>${ibm.version}</version>-->
+			<!--</dependency>-->
+
 			<dependency>
-				<groupId>com.ibm.cos</groupId>
-				<artifactId>ibm-cos-java-sdk</artifactId>
-				<version>${ibm.version}</version>
+				<groupId>com.amazonaws</groupId>
+				<artifactId>aws-java-sdk-s3</artifactId>
+				<version>1.11.5</version>
+			</dependency>
+			<dependency>
+				<groupId>com.softlayer.api</groupId>
+				<artifactId>softlayer-api-client</artifactId>
+				<version>0.2.3</version>
 			</dependency>
 
 			<dependency>
