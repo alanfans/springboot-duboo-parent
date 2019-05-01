@@ -40,6 +40,10 @@
 		<bytetcc.version>0.5.1</bytetcc.version>
 		<ibm.version>2.1.0</ibm.version>
 		<ibmmq.version>9.1.2.0</ibmmq.version>
+		<resteasy.version>3.6.0.Final</resteasy.version>
+		<httpclient.version>4.5.7</httpclient.version>
+		<yasson.version>1.0.3</yasson.version>
+		<glassfish.json.version>1.1.4</glassfish.json.version>
 		<springboot.version>2.0.4.RELEASE</springboot.version>
 		<sprinbgoot-mybatis.version>1.3.2</sprinbgoot-mybatis.version>
 		<redisson-springboot-start>3.10.4</redisson-springboot-start>
@@ -170,6 +174,33 @@
 				<artifactId>com.ibm.mq.allclient</artifactId>
 				<version>${ibmmq.version}</version>
 			</dependency>
+			<dependency>
+				<groupId>org.jboss.resteasy</groupId>
+				<artifactId>resteasy-client</artifactId>
+				<version>${resteasy.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.jboss.resteasy</groupId>
+				<artifactId>resteasy-netty4</artifactId>
+				<version>${resteasy.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.httpcomponents</groupId>
+				<artifactId>httpclient</artifactId>
+				<version>${httpclient.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.eclipse</groupId>
+				<artifactId>yasson</artifactId>
+				<version>${yasson.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.glassfish</groupId>
+				<artifactId>javax.json</artifactId>
+				<version>${glassfish.json.version}</version>
+			</dependency>
+
+
 
 		</dependencies>
 

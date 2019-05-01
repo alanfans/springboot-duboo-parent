@@ -4,6 +4,7 @@ import com.example.demo.api.service.UserService;
 import com.example.demo.provider.dao.UserMapper;
 import com.example.demo.api.model.User;
 import org.apache.dubbo.config.annotation.Service;
+import org.apache.dubbo.rpc.protocol.dubbo.DubboProtocol;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
