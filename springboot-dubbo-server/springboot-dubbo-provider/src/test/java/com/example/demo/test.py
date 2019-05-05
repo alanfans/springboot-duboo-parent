@@ -1,16 +1,18 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.action_chains import ActionChains
 import time
 
 class Am_static():
-	browerType = "chrome"
 	account = {
 		'email' : '123@6vip.ml',
 		'passwd' : ':*)?8A2f4Fck',
 	}
 	em_botton = {
 		'earn' : 'earn_points.php',
-		'mem_pts': 'mem_pts'
+		'mem_pts': 'mem_pts',
+		'ads': (By.XPATH, ".//a[contains(@onclick, 'openSite')]"),
 	}
 	em_url = {
 		'chrome' : 'http://chromedriver.storage.googleapis.com/index.html',
@@ -20,38 +22,77 @@ class Am_static():
 		'profile' : 'https://www.alexamaster.net/a/my_profile.php',
 		'earn' : 'https://www.alexamaster.net/a/earn_points.php'
 	}
-	@staticmethod
-	def getBrower(self):
-		if 'chrome' == self.browerType:
-			self.brower = webdriver.Chrome('/Users/hylc/Downloads/chromedriver')
+
+	def __init__(self,browerType):
+		if 'chrome' == browerType:
+			self.brower = webdriver.Chrome('E:\Program Files\selenium\chromedriver.exe')
 		else:
-			self.brower = webdriver.Firefox(executable_path='/Users/hylc/Downloads/geckodriver')
-			
+			self.brower = webdriver.Firefox(executable_path='E:\Program Files\selenium\geckodriver.exe')
+
+		
+
 	def login(self):
-		brower.get(self.em_url.get('login'))
+		self.brower.get(self.em_url.get('login'))
 		# print("firefox:"+fbrower.page_source)
-		_input = brower.execute_script("return $('.form').find('input')")
-		# email
-		_input[0].send_keys(self.account.get('email'))
-		# pwd
-		_input[1].send_keys(self.account.get('passwd'))
-		_input[2].click()
-		time.sleep(3)
-		brower.get(self.em_url.get('loginConfirm'))
-		brower.get(self.em_url.get('a'))
-		time.sleep(3)
-		mem_pts = brower.find_element_by_id(self.em_botton.get('mem_pts'))
-		print('mem_pts:'+mem_pts.text)
+		try:
+			_input = self.brower.execute_script("return $('.form').find('input')")
+			# email
+			_input[0].send_keys(self.account.get('email'))
+			# pwd
+			_input[1].send_keys(self.account.get('passwd'))
+			_input[2].click()
+			time.sleep(3)
+			self.brower.get(self.em_url.get('loginConfirm'))
+			self.brower.get(self.em_url.get('a'))
+			time.sleep(3)
+			mem_pts = self.brower.find_element_by_id(self.em_botton.get('mem_pts'))
+			print('mem_pts:'+mem_pts.text)
+		except BaseException as identifier:
+			self.login()
 		
 	def visite_earn_page_scroll(self):
     	# not find earn_pgae
 		# button_earn = brower.find_element(By.LINK_TEXT,self.em_url.get("earn"))
 		# button_earn.click()
-		# brower.get(self.em_url.get('earn'))
-		brower.get(self.em_url.get('earn'))
+		# brower.get(self.em_url.get('earn'))5,261
+		self.brower.get(self.em_url.get('earn'))
+		js = 'document.getElementsByClassName("main-panel")[0].scrollTop'
+		height = self.brower.execute_script("return "+js)
+		print('height:'+str(height))
+		self.brower.execute_script(js+"=10000")
 
+	def checkGV(self):
+		time.sleep(6)
+		gvs_div = self.brower.execute_script("return $('.timeline-panel')")
+		hasGV = 0
+		for gv in gvs_div:
+			if '5 G' in gv.text:
+				try:
+					ads = gv.find_element(*self.em_botton.get('ads'))
+					self.getGV(ads)
+					hasGV = 1
+				except BaseException as identifier:
+					print("error")
+				
 
+		if hasGV == 0:
+			self.visite_earn_page_scroll()
+			self.checkGV()
 
-test = Am_static()
+	def getGV(self,ads):
+		ads.click()
+		goodconfirm.click()
+		time.sleep(21)
+		goodconfirm = self.brower.find_element_by_class_name("swal2-confirm")
+		goodconfirm.click()
+		goodconfirm = self.brower.find_element_by_class_name("swal2-confirm")
+		goodconfirm.click()
+		time.sleep(3)
+		self.checkGV()
+
+		
+
+test = Am_static('chrome')
 test.login()
-test.visite_earn_page()
+test.visite_earn_page_scroll()
+test.checkGV()
