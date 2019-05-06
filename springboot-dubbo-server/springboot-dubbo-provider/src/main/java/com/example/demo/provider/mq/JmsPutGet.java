@@ -26,7 +26,9 @@ public class JmsPutGet {
     private static final String QUEUE_NAME = "DEV.QUEUE.1"; // Queue that the application uses to put and get messages to and from
 
 
+
     /**
+     * clsadmin / v4hHnF7p3kD7
      * Main method
      *
      * @param args

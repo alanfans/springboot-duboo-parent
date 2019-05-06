@@ -11,6 +11,8 @@
 
 	<groupId>com.example.server</groupId>
 	<artifactId>springboot-dubbo-api</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>jar</packaging>
 
 	<name>springboot-dubbo-api</name>
 	<description>Demo project for Spring Boot</description>

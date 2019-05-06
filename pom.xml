@@ -21,8 +21,8 @@
 	</parent>
 
 	<modules>
-		<module>springboot-dubbo-server</module>
 		<module>springboot-dubbo-client</module>
+		<module>springboot-dubbo-server</module>
 	</modules>
 
 	<properties>
@@ -199,23 +199,8 @@
 				<artifactId>javax.json</artifactId>
 				<version>${glassfish.json.version}</version>
 			</dependency>
-
-
-
 		</dependencies>
-
 	</dependencyManagement>
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-				<configuration>
-					<mainClass>com.example.demo.SpringboogDubboProviderApplication</mainClass>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
 
 
 </project>
