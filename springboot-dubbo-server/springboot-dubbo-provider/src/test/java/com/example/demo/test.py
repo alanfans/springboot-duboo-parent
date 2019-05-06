@@ -5,8 +5,8 @@ from selenium.webdriver.common.action_chains import ActionChains
 import time
 class Am_auto():
 	account = {
-		'email' : '123@6vip.ml',
-		'passwd' : ':*)?8A2f4Fck',
+		'email' : 'AAAAAA',
+		'passwd' : 'BBBBB',
 	}
 	em_botton = {
 		'earn' : 'earn_points.php',
