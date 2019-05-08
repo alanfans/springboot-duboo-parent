@@ -12,7 +12,7 @@ import java.util.Date;
 /**
  * Created by hylc on 11/4/18.
  */
-@Service
+@Service(protocol = {"dubbo","rest"})
 public class MailServiceImpl implements MailService {
 
     @Autowired
