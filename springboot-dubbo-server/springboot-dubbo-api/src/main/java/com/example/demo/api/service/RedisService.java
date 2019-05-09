@@ -12,4 +12,6 @@ import javax.ws.rs.Produces;
 public interface RedisService {
 
     void TestRedisLock(String lockString,String unlockString,Integer c);
+
+    Long RedisMQpublish(String topic, Integer userId, String name);
 }

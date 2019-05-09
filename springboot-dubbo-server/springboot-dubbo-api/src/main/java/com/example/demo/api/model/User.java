@@ -12,4 +12,13 @@ public class User implements Serializable {
 
     private Integer id;
     private String user_name;
+
+    public User(Integer id, String user_name) {
+        this.id = id;
+        this.user_name = user_name;
+    }
+
+    public User() {
+
+    }
 }

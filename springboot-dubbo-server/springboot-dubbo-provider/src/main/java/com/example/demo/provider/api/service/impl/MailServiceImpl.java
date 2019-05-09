@@ -22,7 +22,7 @@ public class MailServiceImpl implements MailService {
     public void sendSimpleMail(){
         SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
         simpleMailMessage.setFrom("admin@alimama.tw");
-        simpleMailMessage.setTo("617907659@qq.com");
+        simpleMailMessage.setTo("alan@vps6.win");
         simpleMailMessage.setSubject("test");
         Date date = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat("YYYY-MM-dd HH:mm:ss");

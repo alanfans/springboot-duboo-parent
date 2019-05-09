@@ -39,7 +39,7 @@
 		<netty.version>4.1.32.Final</netty.version>
 		<bytetcc.version>0.5.1</bytetcc.version>
 		<swagger.version>2.9.2</swagger.version>
-		<swagger-jaxrs.version>2.0.8</swagger-jaxrs.version>
+		<swagger-jaxrs.version>1.5.22</swagger-jaxrs.version>
 		<ibm.version>2.1.0</ibm.version>
 		<ibmmq.version>9.1.2.0</ibmmq.version>
 		<resteasy.version>3.6.0.Final</resteasy.version>
@@ -149,8 +149,8 @@
                 <version>${swagger.version}</version>
             </dependency>
 			<dependency>
-				<groupId>io.swagger.core.v3</groupId>
-				<artifactId>swagger-jaxrs2</artifactId>
+				<groupId>io.swagger</groupId>
+				<artifactId>swagger-jaxrs</artifactId>
 				<version>${swagger-jaxrs.version}</version>
 			</dependency>
 <!--			<dependency>
