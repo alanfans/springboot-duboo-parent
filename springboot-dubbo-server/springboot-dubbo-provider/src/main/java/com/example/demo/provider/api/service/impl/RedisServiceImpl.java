@@ -2,19 +2,25 @@ package com.example.demo.provider.api.service.impl;
 
 import com.example.demo.api.model.User;
 import com.example.demo.api.service.RedisService;
+import com.example.demo.provider.redisson.DelayJob;
+import com.example.demo.provider.redisson.JobTimer;
+import io.swagger.util.Json;
 import jodd.util.RandomString;
 import org.apache.dubbo.config.annotation.Service;
-import org.redisson.api.RBucket;
-import org.redisson.api.RLock;
-import org.redisson.api.RTopic;
-import org.redisson.api.RedissonClient;
+import org.redisson.api.*;
 import org.redisson.api.listener.MessageListener;
 import org.redisson.codec.SerializationCodec;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.annotation.Resource;
+import java.util.Map;
+import java.util.concurrent.TimeUnit;
+
 
 @Service
 public class RedisServiceImpl implements RedisService {
+    private static Logger log = LoggerFactory.getLogger(RedisServiceImpl.class);
 
    private static String _lockString="lockString:";
    private static String _unlockString = "unlockString:";
@@ -57,11 +63,17 @@ public class RedisServiceImpl implements RedisService {
         }
     }
 
-    public Long RedisMQpublish(String topic,Integer userId,String name){
+    public Long RedisMQpublish(String topic,Integer userId,String name) {
         RTopic topic1 = redissonClient.getTopic(topic, new SerializationCodec());
         Long time = topic1.publish(new User(userId,name));
-
+        log.info("发送topic:{},user:{}",topic, Json.pretty(new User(userId,name)));
         return time;
+    }
+
+    public void submitJob(Map jobParams, Class noneClass, Long delay, TimeUnit timeUnit){
+        RBlockingQueue blockingQueue = redissonClient.getBlockingQueue(JobTimer.jobsTag);
+        RDelayedQueue delayedQueue = redissonClient.getDelayedQueue(blockingQueue);
+        delayedQueue.offer(new DelayJob(jobParams,noneClass),delay,timeUnit);
     }
 
     public void RedisMQsubscribe(){
