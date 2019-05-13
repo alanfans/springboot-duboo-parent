@@ -1,4 +1,4 @@
-package com.example.demo.provider.redisson;
+package com.example.demo.api.model;
 
 import java.io.Serializable;
 import java.util.Map;
@@ -19,6 +19,8 @@ public class DelayJob implements Serializable {
         this.jobParams = jobParams;
         this.noneClass = noneClass;
     }
+
+
 
     public Map getJobParams() {
         return jobParams;

@@ -1,8 +1,9 @@
 package com.example.demo.provider.api.service.impl;
 
+import com.example.demo.api.model.DelayJob;
 import com.example.demo.api.model.User;
 import com.example.demo.api.service.RedisService;
-import com.example.demo.provider.redisson.DelayJob;
+import com.example.demo.provider.redisson.Job;
 import com.example.demo.provider.redisson.JobTimer;
 import io.swagger.util.Json;
 import jodd.util.RandomString;
@@ -13,6 +14,7 @@ import org.redisson.codec.SerializationCodec;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -70,12 +72,13 @@ public class RedisServiceImpl implements RedisService {
         return time;
     }
 
-    public void submitJob(Map jobParams, Class noneClass, Long delay, TimeUnit timeUnit){
+    public void submitJob(Map jobParams,String type, Long delay, TimeUnit timeUnit){
         RBlockingQueue blockingQueue = redissonClient.getBlockingQueue(JobTimer.jobsTag);
         RDelayedQueue delayedQueue = redissonClient.getDelayedQueue(blockingQueue);
-        delayedQueue.offer(new DelayJob(jobParams,noneClass),delay,timeUnit);
+        delayedQueue.offer(new DelayJob(jobParams, Job.getValueByCode(type)),delay,timeUnit);
     }
 
+    @PostConstruct
     public void RedisMQsubscribe(){
         RTopic topic = redissonClient.getTopic("a1",new SerializationCodec());
 

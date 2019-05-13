@@ -1,6 +1,7 @@
 package com.example.demo.api.model;
 
 import lombok.Data;
+import org.springframework.stereotype.Service;
 
 import java.io.Serializable;
 

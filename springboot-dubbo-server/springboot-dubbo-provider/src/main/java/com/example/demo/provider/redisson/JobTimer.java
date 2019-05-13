@@ -1,5 +1,7 @@
 package com.example.demo.provider.redisson;
 
+import com.example.demo.api.model.DelayJob;
+import com.example.demo.api.service.ExecuteJob;
 import org.redisson.api.RBlockingQueue;
 import org.redisson.api.RedissonClient;
 import org.springframework.beans.factory.annotation.Autowired;
