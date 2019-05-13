@@ -29,23 +29,20 @@ public class JobTimer {
     @PostConstruct
     public void StartJobTimer(){
         RBlockingQueue blockingQueue = redissonClient.getBlockingQueue(jobsTag);
-        new Thread() {
-            @Override
-            public void run() {
-                while (true) {
+        new Thread(() -> {
+            while (true) {
+                try {
+                    DelayJob job = (DelayJob) blockingQueue.take();
+                    executorService.execute(new ExecutorTask(context, job));
+                } catch (Exception e) {
+                    e.printStackTrace();
                     try {
-                        DelayJob job = (DelayJob) blockingQueue.take();
-                        executorService.execute(new ExecutorTask(context, job));
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                        try {
-                            TimeUnit.SECONDS.sleep(60);
-                        } catch (Exception ex) {
-                        }
+                        TimeUnit.SECONDS.sleep(60);
+                    } catch (Exception ex) {
                     }
                 }
             }
-        }.start();
+        }).start();
     }
     class ExecutorTask implements Runnable {
 
