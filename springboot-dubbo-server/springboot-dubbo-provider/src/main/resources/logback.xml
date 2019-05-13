@@ -65,6 +65,15 @@
     <!--<appender-ref ref="socket" />-->
     <!--&lt;!&ndash; <appender-ref ref="LOGSTASH" /> &ndash;&gt;-->
     <!--</root>-->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>[mybatis-${project.version}] [%level] %msg [%file:%line] [%logger{100}]%n</pattern>
+        </encoder>
+    </appender>
+
+    <logger name="com.example.demo.provider.dao" level="DEBUG" />
+    <logger name="org.mybatis" level="TRACE" />
+
 
     <appender name="LOGSTASH" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
         <destination>51.68.88.200:9250</destination>
@@ -76,7 +85,7 @@
 
     <root level="INFO">
         <appender-ref ref="LOGSTASH" />
-        <appender-ref ref="CONSOLE" />
+        <appender-ref ref="STDOUT" />
     </root>
 
 </configuration>
