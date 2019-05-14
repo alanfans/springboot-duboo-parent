@@ -6,6 +6,8 @@ import com.example.demo.provider.dao.CategoriesMapper;
 import org.apache.dubbo.config.annotation.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.List;
+
 @Service
 public class CategoriesSericeImpl implements CategoriesService {
 
@@ -25,5 +27,10 @@ public class CategoriesSericeImpl implements CategoriesService {
     @Override
     public int update(Categories categories) {
         return categoriesMapper.updateByPrimaryKey(categories);
+    }
+
+    @Override
+    public List<Categories> selectByType(Categories categories) {
+        return categoriesMapper.selectByType(categories);
     }
 }

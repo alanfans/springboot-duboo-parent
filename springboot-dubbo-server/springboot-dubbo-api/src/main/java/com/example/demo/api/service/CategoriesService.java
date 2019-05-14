@@ -7,6 +7,7 @@ import org.apache.dubbo.rpc.protocol.rest.support.ContentType;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import java.util.List;
 
 @Path("categoriesService") // #1
 @Consumes({ContentType.APPLICATION_JSON_UTF_8, ContentType.APPLICATION_JSON_UTF_8})
@@ -19,4 +20,6 @@ public interface CategoriesService {
     Categories select(Categories categories);
 
     int update(Categories categories1);
+
+    List<Categories> selectByType(Categories categories);
 }

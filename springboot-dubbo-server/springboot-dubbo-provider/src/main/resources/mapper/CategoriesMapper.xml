@@ -140,10 +140,28 @@
   </update>
 
   <select id="select" parameterType="com.example.demo.api.model.Categories" resultType="com.example.demo.api.model.Categories">
-    select * from allitebooks_categories
+    select
+    <include refid="Base_Column_List" />
+    from allitebooks_categories
     where is_delete = 0
     <if test="name != null">
      and name = #{name,jdbcType=VARCHAR}
+    </if>
+    <if test="display != null">
+      and display = #{display,jdbcType=VARCHAR}
+    </if>
+    <if test="type != null">
+      and type = #{type,jdbcType=INTEGER}
+    </if>
+  </select>
+
+  <select id="selectByType" parameterType="com.example.demo.api.model.Categories" resultType="com.example.demo.api.model.Categories">
+    select
+    <include refid="Base_Column_List" />
+    from allitebooks_categories
+    where is_delete = 0
+    <if test="name != null">
+      and name = #{name,jdbcType=VARCHAR}
     </if>
     <if test="display != null">
       and display = #{display,jdbcType=VARCHAR}

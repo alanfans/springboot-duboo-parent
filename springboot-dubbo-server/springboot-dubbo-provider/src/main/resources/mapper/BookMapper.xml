@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.provider.dao.BookMapper">
+  <resultMap id="BaseResultMap" type="com.example.demo.api.model.Book">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="book_titie" jdbcType="VARCHAR" property="bookTitie" />
+    <result column="book_desc" jdbcType="VARCHAR" property="bookDesc" />
+    <result column="author" jdbcType="VARCHAR" property="author" />
+    <result column="isbn" jdbcType="VARCHAR" property="isbn" />
+    <result column="year" jdbcType="INTEGER" property="year" />
+    <result column="pages" jdbcType="VARCHAR" property="pages" />
+    <result column="language" jdbcType="VARCHAR" property="language" />
+    <result column="file_size" jdbcType="VARCHAR" property="fileSize" />
+    <result column="file_format" jdbcType="VARCHAR" property="fileFormat" />
+    <result column="category" jdbcType="INTEGER" property="category" />
+    <result column="create_by" jdbcType="VARCHAR" property="createBy" />
+    <result column="update_by" jdbcType="VARCHAR" property="updateBy" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+    <result column="is_delete" jdbcType="BIGINT" property="isDelete" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.example.demo.api.model.Book">
+    <result column="book_description" jdbcType="LONGVARCHAR" property="bookDescription" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, book_titie, book_desc, author, isbn, year, pages, language, file_size, file_format, 
+    category, create_by, update_by, gmt_create, gmt_modified, is_delete
+  </sql>
+  <sql id="Blob_Column_List">
+    book_description
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from allitebooks_book
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from allitebooks_book
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.example.demo.api.model.Book" useGeneratedKeys="true" keyProperty="id">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into allitebooks_book (book_titie, book_desc, author, 
+      isbn, year, pages, 
+      language, file_size, file_format, 
+      category, create_by, update_by, 
+      gmt_create, gmt_modified, is_delete, 
+      book_description)
+    values (#{bookTitie,jdbcType=VARCHAR}, #{bookDesc,jdbcType=VARCHAR}, #{author,jdbcType=VARCHAR}, 
+      #{isbn,jdbcType=VARCHAR}, #{year,jdbcType=INTEGER}, #{pages,jdbcType=VARCHAR}, 
+      #{language,jdbcType=VARCHAR}, #{fileSize,jdbcType=VARCHAR}, #{fileFormat,jdbcType=VARCHAR}, 
+      #{category,jdbcType=INTEGER}, #{createBy,jdbcType=VARCHAR}, #{updateBy,jdbcType=VARCHAR}, 
+      #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, #{isDelete,jdbcType=BIGINT}, 
+      #{bookDescription,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.demo.api.model.Book" useGeneratedKeys="true" keyProperty="id">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into allitebooks_book
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="bookTitie != null">
+        book_titie,
+      </if>
+      <if test="bookDesc != null">
+        book_desc,
+      </if>
+      <if test="author != null">
+        author,
+      </if>
+      <if test="isbn != null">
+        isbn,
+      </if>
+      <if test="year != null">
+        year,
+      </if>
+      <if test="pages != null">
+        pages,
+      </if>
+      <if test="language != null">
+        language,
+      </if>
+      <if test="fileSize != null">
+        file_size,
+      </if>
+      <if test="fileFormat != null">
+        file_format,
+      </if>
+      <if test="category != null">
+        category,
+      </if>
+      <if test="createBy != null">
+        create_by,
+      </if>
+      <if test="updateBy != null">
+        update_by,
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create,
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified,
+      </if>
+      <if test="isDelete != null">
+        is_delete,
+      </if>
+      <if test="bookDescription != null">
+        book_description,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="bookTitie != null">
+        #{bookTitie,jdbcType=VARCHAR},
+      </if>
+      <if test="bookDesc != null">
+        #{bookDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="author != null">
+        #{author,jdbcType=VARCHAR},
+      </if>
+      <if test="isbn != null">
+        #{isbn,jdbcType=VARCHAR},
+      </if>
+      <if test="year != null">
+        #{year,jdbcType=INTEGER},
+      </if>
+      <if test="pages != null">
+        #{pages,jdbcType=VARCHAR},
+      </if>
+      <if test="language != null">
+        #{language,jdbcType=VARCHAR},
+      </if>
+      <if test="fileSize != null">
+        #{fileSize,jdbcType=VARCHAR},
+      </if>
+      <if test="fileFormat != null">
+        #{fileFormat,jdbcType=VARCHAR},
+      </if>
+      <if test="category != null">
+        #{category,jdbcType=INTEGER},
+      </if>
+      <if test="createBy != null">
+        #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateBy != null">
+        #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="gmtCreate != null">
+        #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDelete != null">
+        #{isDelete,jdbcType=BIGINT},
+      </if>
+      <if test="bookDescription != null">
+        #{bookDescription,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.demo.api.model.Book">
+    update allitebooks_book
+    <set>
+      <if test="bookTitie != null">
+        book_titie = #{bookTitie,jdbcType=VARCHAR},
+      </if>
+      <if test="bookDesc != null">
+        book_desc = #{bookDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="author != null">
+        author = #{author,jdbcType=VARCHAR},
+      </if>
+      <if test="isbn != null">
+        isbn = #{isbn,jdbcType=VARCHAR},
+      </if>
+      <if test="year != null">
+        year = #{year,jdbcType=INTEGER},
+      </if>
+      <if test="pages != null">
+        pages = #{pages,jdbcType=VARCHAR},
+      </if>
+      <if test="language != null">
+        language = #{language,jdbcType=VARCHAR},
+      </if>
+      <if test="fileSize != null">
+        file_size = #{fileSize,jdbcType=VARCHAR},
+      </if>
+      <if test="fileFormat != null">
+        file_format = #{fileFormat,jdbcType=VARCHAR},
+      </if>
+      <if test="category != null">
+        category = #{category,jdbcType=INTEGER},
+      </if>
+      <if test="createBy != null">
+        create_by = #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateBy != null">
+        update_by = #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDelete != null">
+        is_delete = #{isDelete,jdbcType=BIGINT},
+      </if>
+      <if test="bookDescription != null">
+        book_description = #{bookDescription,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.example.demo.api.model.Book">
+    update allitebooks_book
+    set book_titie = #{bookTitie,jdbcType=VARCHAR},
+      book_desc = #{bookDesc,jdbcType=VARCHAR},
+      author = #{author,jdbcType=VARCHAR},
+      isbn = #{isbn,jdbcType=VARCHAR},
+      year = #{year,jdbcType=INTEGER},
+      pages = #{pages,jdbcType=VARCHAR},
+      language = #{language,jdbcType=VARCHAR},
+      file_size = #{fileSize,jdbcType=VARCHAR},
+      file_format = #{fileFormat,jdbcType=VARCHAR},
+      category = #{category,jdbcType=INTEGER},
+      create_by = #{createBy,jdbcType=VARCHAR},
+      update_by = #{updateBy,jdbcType=VARCHAR},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      is_delete = #{isDelete,jdbcType=BIGINT},
+      book_description = #{bookDescription,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.demo.api.model.Book">
+    update allitebooks_book
+    set book_titie = #{bookTitie,jdbcType=VARCHAR},
+      book_desc = #{bookDesc,jdbcType=VARCHAR},
+      author = #{author,jdbcType=VARCHAR},
+      isbn = #{isbn,jdbcType=VARCHAR},
+      year = #{year,jdbcType=INTEGER},
+      pages = #{pages,jdbcType=VARCHAR},
+      language = #{language,jdbcType=VARCHAR},
+      file_size = #{fileSize,jdbcType=VARCHAR},
+      file_format = #{fileFormat,jdbcType=VARCHAR},
+      category = #{category,jdbcType=INTEGER},
+      create_by = #{createBy,jdbcType=VARCHAR},
+      update_by = #{updateBy,jdbcType=VARCHAR},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      is_delete = #{isDelete,jdbcType=BIGINT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+
+
+  <select id="selectbyName" resultType="com.example.demo.api.model.Book" parameterType="java.lang.String">
+          SELECT * from allitebooks_book where is_delete =0
+          and book_titie = #{bookTitie}
+  </select>
+</mapper>

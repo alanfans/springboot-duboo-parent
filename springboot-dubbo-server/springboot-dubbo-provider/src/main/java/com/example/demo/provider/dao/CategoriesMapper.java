@@ -3,6 +3,8 @@ package com.example.demo.provider.dao;
 
 import com.example.demo.api.model.Categories;
 
+import java.util.List;
+
 public interface CategoriesMapper {
     int deleteByPrimaryKey(Integer id);
 
@@ -17,4 +19,6 @@ public interface CategoriesMapper {
     int updateByPrimaryKey(Categories record);
 
     Categories select(Categories record);
+
+    List<Categories> selectByType(Categories categories);
 }
