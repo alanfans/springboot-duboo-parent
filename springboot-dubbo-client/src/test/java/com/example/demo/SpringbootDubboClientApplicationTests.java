@@ -1,11 +1,12 @@
 package com.example.demo;
 
-import com.example.demo.api.model.*;
-import com.example.demo.api.service.BookImgService;
-import com.example.demo.api.service.BookService;
-import com.example.demo.api.service.CategoriesService;
-import com.example.demo.api.service.DownloadlinkService;
+import com.example.demo.api.model.Book;
+import com.example.demo.api.model.Bookimg;
+import com.example.demo.api.model.Categories;
+import com.example.demo.api.model.Downloadlink;
+import com.example.demo.api.service.*;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.dubbo.common.json.JSON;
 import org.apache.dubbo.config.annotation.Reference;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -13,19 +14,17 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
-import java.util.Spliterator;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
-import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.toList;
 
@@ -44,6 +43,9 @@ public class SpringbootDubboClientApplicationTests {
 
 	@Reference(protocol = "dubbo")
 	private DownloadlinkService downloadlinkService;
+
+	@Reference(protocol = "dubbo")
+	RedisService redisService;
 
 	public static String ALLITEBOOKS_URL = "http://www.allitebooks.org/";
 
@@ -141,7 +143,7 @@ public class SpringbootDubboClientApplicationTests {
         }
 	}
 
-	ExecutorService executorService = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
+	ExecutorService executorService = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors()*2);
 
 	@Test
 	public void getbookUrl(){
@@ -152,22 +154,38 @@ public class SpringbootDubboClientApplicationTests {
 		categoriesList.forEach( categories1 -> {
 			executorService.execute( () -> {
 				for (Integer i = 1; i < Integer.MAX_VALUE; i++) {
-					String Url = ALLITEBOOKS_URL + categories1.getName() +"/page/6/";
-					Document doc = getDoc(Url);
-					String no_book = doc.select("h2[class=page-title]").text();
-					if(StringUtils.equals("No Posts Found.",no_book)){
+					String Url = ALLITEBOOKS_URL + categories1.getName() +"/page/"+i;
+					try {
+						Document doc = Jsoup.parse(new URL(Url),20000);
+						String no_book = doc.select("h1[class=page-title]").text();
+						if(StringUtils.equals("No Posts Found.",no_book)){
+							break;
+						}
+						//get Url
+						execute(doc).forEach( url ->  redisService.addUrl2Redis(categories1.getName(),url) );
+					} catch (IOException e) {
+						e.printStackTrace();
 						break;
 					}
-					//get Url
-					execute(doc);
 				}
 			});
 		});
+
+		try {
+			Thread.sleep(10000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 	}
 
 	private List<String> execute(Document doc) {
-		Elements elements = doc.select("h1[class=entry-title] a");
-		List<String> bookUrls = elements.stream().map( Element::text).collect(toList());
+		Elements elements = doc.select("h2[class=entry-title] a");
+		List<String> bookUrls = elements.stream().map( Sting -> elements.attr("href")).collect(toList());
+		try {
+			System.out.println(JSON.json(bookUrls));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		return bookUrls;
 	}
 

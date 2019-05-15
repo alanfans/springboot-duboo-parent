@@ -44,31 +44,31 @@
 			<artifactId>curator-recipes</artifactId>
 		</dependency>
 
-		<dependency>
-			<groupId>javax.ws.rs</groupId>
-			<artifactId>javax.ws.rs-api</artifactId>
-			<version>2.1</version>
-		</dependency>
+		<!--<dependency>-->
+			<!--<groupId>javax.ws.rs</groupId>-->
+			<!--<artifactId>javax.ws.rs-api</artifactId>-->
+			<!--<version>2.1</version>-->
+		<!--</dependency>-->
 		<dependency>
 			<groupId>org.apache.httpcomponents</groupId>
 			<artifactId>httpclient</artifactId>
 		</dependency>
-		<dependency>
-			<groupId>org.jboss.resteasy</groupId>
-			<artifactId>resteasy-client</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.eclipse</groupId>
-			<artifactId>yasson</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.glassfish</groupId>
-			<artifactId>javax.json</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.jboss.resteasy</groupId>
-			<artifactId>resteasy-netty4</artifactId>
-		</dependency>
+		<!--<dependency>-->
+			<!--<groupId>org.jboss.resteasy</groupId>-->
+			<!--<artifactId>resteasy-client</artifactId>-->
+		<!--</dependency>-->
+		<!--<dependency>-->
+			<!--<groupId>org.eclipse</groupId>-->
+			<!--<artifactId>yasson</artifactId>-->
+		<!--</dependency>-->
+		<!--<dependency>-->
+			<!--<groupId>org.glassfish</groupId>-->
+			<!--<artifactId>javax.json</artifactId>-->
+		<!--</dependency>-->
+		<!--<dependency>-->
+			<!--<groupId>org.jboss.resteasy</groupId>-->
+			<!--<artifactId>resteasy-netty4</artifactId>-->
+		<!--</dependency>-->
 		<dependency>
 			<groupId>io.springfox</groupId>
 			<artifactId>springfox-swagger2</artifactId>

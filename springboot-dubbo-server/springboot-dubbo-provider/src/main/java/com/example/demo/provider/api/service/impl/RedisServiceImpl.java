@@ -7,6 +7,7 @@ import com.example.demo.provider.redisson.Job;
 import com.example.demo.provider.redisson.JobTimer;
 import io.swagger.util.Json;
 import jodd.util.RandomString;
+import org.apache.commons.codec.digest.Md5Crypt;
 import org.apache.dubbo.config.annotation.Service;
 import org.redisson.api.*;
 import org.redisson.api.listener.MessageListener;
@@ -89,5 +90,12 @@ public class RedisServiceImpl implements RedisService {
                 System.out.println(user.getId()+" UserName : "+user.getUser_name());
             }
         });
+    }
+
+
+    public Boolean addUrl2Redis(String type,String url){
+        String key = type+":"+ Md5Crypt.md5Crypt(url.getBytes());
+        RList rList = redissonClient.getList(key);
+        return rList.add(url);
     }
 }

@@ -35,6 +35,13 @@ public class TestRedisController {
     }
 
     @ResponseBody
+    @PostMapping("/addUrl2Redis")
+    public ResponseEntity<Object> AddUrl2Redis(String type,String url){
+
+        return ResponseEntity.ok(redisService.addUrl2Redis( type, url));
+    }
+
+    @ResponseBody
     @PostMapping("/testQueue")
     public ResponseEntity<Object> RedisRestQueue(@RequestParam(value = "主题",required = true) String topic, Integer userId, String name,Long delay,String type){
         Map jobParams = Maps.newHashMap();
