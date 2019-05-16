@@ -1,15 +1,17 @@
 package com.example.demo.api.service;
 
-import org.apache.dubbo.rpc.protocol.rest.support.ContentType;
+import org.jboss.resteasy.annotations.jaxrs.FormParam;
+import org.jboss.resteasy.annotations.jaxrs.PathParam;
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.MediaType;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
-//@Path("redisService") // #1
-//@Consumes({ContentType.APPLICATION_JSON_UTF_8, ContentType.APPLICATION_JSON_UTF_8})
+@Path("redisService") // #1
 //@Produces({ContentType.APPLICATION_JSON_UTF_8, ContentType.APPLICATION_JSON_UTF_8})
 public interface RedisService {
 
@@ -19,5 +21,8 @@ public interface RedisService {
 
     void submitJob(Map jobParams,String type, Long delay, TimeUnit timeUnit);
 
-    Boolean addUrl2Redis(String type,String url);
+    @POST
+    @Path("addUrl2Redis")
+    @Consumes({MediaType.APPLICATION_FORM_URLENCODED})
+    Boolean addUrl2Redis(@QueryParam("type") String type, @QueryParam("url") String url);
 }

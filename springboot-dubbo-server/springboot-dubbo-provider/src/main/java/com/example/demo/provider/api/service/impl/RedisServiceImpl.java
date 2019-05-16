@@ -21,7 +21,7 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 
-@Service
+@Service(async = true)
 public class RedisServiceImpl implements RedisService {
     private static Logger log = LoggerFactory.getLogger(RedisServiceImpl.class);
 

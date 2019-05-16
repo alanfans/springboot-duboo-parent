@@ -12,9 +12,9 @@ import javax.ws.rs.Produces;
  * 延时job执行器接口
  */
 @Service
-//@Path("accountService") // #1
-//@Consumes({ContentType.APPLICATION_JSON_UTF_8, ContentType.APPLICATION_JSON_UTF_8})
-//@Produces({ContentType.APPLICATION_JSON_UTF_8, ContentType.APPLICATION_JSON_UTF_8})
+@Path("accountService") // #1
+@Consumes({ContentType.APPLICATION_JSON_UTF_8, ContentType.APPLICATION_JSON_UTF_8})
+@Produces({ContentType.APPLICATION_JSON_UTF_8, ContentType.APPLICATION_JSON_UTF_8})
 public interface ExecuteJob {
 
     void execute(DelayJob job);

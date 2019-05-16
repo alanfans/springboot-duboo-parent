@@ -9,10 +9,10 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import java.util.List;
 
-//@Path("categoriesService") // #1
-//@Consumes({ContentType.APPLICATION_JSON_UTF_8, ContentType.APPLICATION_JSON_UTF_8})
-//@Produces({ContentType.APPLICATION_JSON_UTF_8, ContentType.APPLICATION_JSON_UTF_8})
-//@Api(value = "categoriesService", description = "User REST for Integration Testing")
+@Path("categoriesService") // #1
+@Consumes({ContentType.APPLICATION_JSON_UTF_8, ContentType.APPLICATION_JSON_UTF_8})
+@Produces({ContentType.APPLICATION_JSON_UTF_8, ContentType.APPLICATION_JSON_UTF_8})
+@Api(value = "categoriesService", description = "User REST for Integration Testing")
 public interface CategoriesService {
 
     int insert(Categories categories);

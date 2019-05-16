@@ -4,7 +4,7 @@ import com.example.demo.api.model.Book;
 
 import javax.ws.rs.Path;
 
-//@Path("bookService")
+@Path("bookService")
 public interface BookService {
     int addBook(Book book);
 

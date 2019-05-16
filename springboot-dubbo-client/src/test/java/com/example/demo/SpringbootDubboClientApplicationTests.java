@@ -8,17 +8,19 @@ import com.example.demo.api.service.*;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.dubbo.common.json.JSON;
 import org.apache.dubbo.config.annotation.Reference;
+import org.jboss.resteasy.client.ClientRequest;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import javax.ws.rs.core.MediaType;
 import java.io.IOException;
+import java.net.SocketTimeoutException;
 import java.net.URL;
 import java.util.Date;
 import java.util.List;
@@ -53,7 +55,12 @@ public class SpringbootDubboClientApplicationTests {
 
     //Categories
 	public void contextLoads() {
-		Document doc = getDoc(ALLITEBOOKS_URL);
+		Document doc = null;
+		try {
+			doc = getDoc(ALLITEBOOKS_URL);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		Element keywords = doc.select("li[id=menu-item-65]").select("ul").first();
 		List<Element> elements = keywords.children().stream().filter(x -> x!=null).collect(toList());
 		elements.forEach(element -> {
@@ -88,7 +95,12 @@ public class SpringbootDubboClientApplicationTests {
 
 	@Test
 	public void getBookDetil() {
-		Document doc = getDoc(ONEBOOK_URL);
+		Document doc = null;
+		try {
+			doc = getDoc(ONEBOOK_URL);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 
 		String single_title = doc.selectFirst("h1[class=single-title]").text();
 		Elements entry_meta = doc.select("div[class=entry-meta clearfix] img");
@@ -143,26 +155,36 @@ public class SpringbootDubboClientApplicationTests {
         }
 	}
 
-	ExecutorService executorService = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors()*2);
+	ExecutorService executorService = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
 
 	@Test
 	public void getbookUrl(){
 		//大类
 		Categories categories = new Categories();
 		categories.setType(0);
+//		categories.setName("datebases");
 		List<Categories> categoriesList = categoriesService.selectByType(categories);
 		categoriesList.forEach( categories1 -> {
 			executorService.execute( () -> {
 				for (Integer i = 1; i < Integer.MAX_VALUE; i++) {
 					String Url = ALLITEBOOKS_URL + categories1.getName() +"/page/"+i;
 					try {
-						Document doc = Jsoup.parse(new URL(Url),20000);
+						Document doc = getDoc(Url);
 						String no_book = doc.select("h1[class=page-title]").text();
 						if(StringUtils.equals("No Posts Found.",no_book)){
 							break;
 						}
 						//get Url
 						execute(doc).forEach( url ->  redisService.addUrl2Redis(categories1.getName(),url) );
+//						execute(doc).forEach( url -> {
+//							ClientRequest request = new ClientRequest( "http://127.0.0.1:8082/redisService/addUrl2Redis?type="+categories1.getName()+"&url="+url);
+//							request.accept(MediaType.APPLICATION_FORM_URLENCODED);
+//							try {
+//								request.post(Boolean.class);
+//							} catch (Exception e) {
+//								e.printStackTrace();
+//							}
+//						} );
 					} catch (IOException e) {
 						e.printStackTrace();
 						break;
@@ -190,12 +212,12 @@ public class SpringbootDubboClientApplicationTests {
 	}
 
 
-	private Document getDoc(String Url){
-		try {
-			Document doc = Jsoup.connect(Url).get();
+	private Document getDoc(String Url) throws IOException {
+		try{
+			Document doc = Jsoup.parse(new URL(Url),90000);
 			return doc;
-		} catch (IOException e) {
-			e.printStackTrace();
+		}catch (SocketTimeoutException se){
+			getDoc(Url);
 		}
 		return null;
 	}

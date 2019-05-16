@@ -10,9 +10,9 @@ import javax.ws.rs.Produces;
 /**
  * Created by hylc on 2018/8/19.
  */
-//@Path("userService") // #1
-//@Consumes({ContentType.APPLICATION_JSON_UTF_8, ContentType.APPLICATION_JSON_UTF_8})
-//@Produces({ContentType.APPLICATION_JSON_UTF_8, ContentType.APPLICATION_JSON_UTF_8})
+@Path("userService") // #1
+@Consumes({ContentType.APPLICATION_JSON_UTF_8, ContentType.APPLICATION_JSON_UTF_8})
+@Produces({ContentType.APPLICATION_JSON_UTF_8, ContentType.APPLICATION_JSON_UTF_8})
 public interface UserService {
 
     User findOneById(Long id);
