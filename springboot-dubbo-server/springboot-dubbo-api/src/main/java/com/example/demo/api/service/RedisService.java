@@ -1,5 +1,6 @@
 package com.example.demo.api.service;
 
+import com.example.demo.api.model.Categories;
 import org.jboss.resteasy.annotations.jaxrs.FormParam;
 import org.jboss.resteasy.annotations.jaxrs.PathParam;
 
@@ -25,4 +26,6 @@ public interface RedisService {
     @Path("addUrl2Redis")
     @Consumes({MediaType.APPLICATION_FORM_URLENCODED})
     Boolean addUrl2Redis(@QueryParam("type") String type, @QueryParam("url") String url);
+
+    String addUrl2Redis(Categories categories);
 }

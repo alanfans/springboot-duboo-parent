@@ -46,18 +46,14 @@ public class SpringbootDubboClientApplicationTests {
 	@Reference(protocol = "dubbo")
 	private DownloadlinkService downloadlinkService;
 
-	@Reference(protocol = "dubbo")
+	@Reference(protocol = "dubbo",async = true)
 	RedisService redisService;
-
-	public static String ALLITEBOOKS_URL = "http://www.allitebooks.org/";
-
-	public static String ONEBOOK_URL = "http://www.allitebooks.org/google-app-inventor/";
 
     //Categories
 	public void contextLoads() {
 		Document doc = null;
 		try {
-			doc = getDoc(ALLITEBOOKS_URL);
+			doc = getDoc(CategoriesService.ALLITEBOOKS_URL);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -97,7 +93,7 @@ public class SpringbootDubboClientApplicationTests {
 	public void getBookDetil() {
 		Document doc = null;
 		try {
-			doc = getDoc(ONEBOOK_URL);
+			doc = getDoc(CategoriesService.ONEBOOK_URL);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -155,7 +151,7 @@ public class SpringbootDubboClientApplicationTests {
         }
 	}
 
-	ExecutorService executorService = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
+
 
 	@Test
 	public void getbookUrl(){
@@ -163,35 +159,7 @@ public class SpringbootDubboClientApplicationTests {
 		Categories categories = new Categories();
 		categories.setType(0);
 //		categories.setName("datebases");
-		List<Categories> categoriesList = categoriesService.selectByType(categories);
-		categoriesList.forEach( categories1 -> {
-			executorService.execute( () -> {
-				for (Integer i = 1; i < Integer.MAX_VALUE; i++) {
-					String Url = ALLITEBOOKS_URL + categories1.getName() +"/page/"+i;
-					try {
-						Document doc = getDoc(Url);
-						String no_book = doc.select("h1[class=page-title]").text();
-						if(StringUtils.equals("No Posts Found.",no_book)){
-							break;
-						}
-						//get Url
-						execute(doc).forEach( url ->  redisService.addUrl2Redis(categories1.getName(),url) );
-//						execute(doc).forEach( url -> {
-//							ClientRequest request = new ClientRequest( "http://127.0.0.1:8082/redisService/addUrl2Redis?type="+categories1.getName()+"&url="+url);
-//							request.accept(MediaType.APPLICATION_FORM_URLENCODED);
-//							try {
-//								request.post(Boolean.class);
-//							} catch (Exception e) {
-//								e.printStackTrace();
-//							}
-//						} );
-					} catch (IOException e) {
-						e.printStackTrace();
-						break;
-					}
-				}
-			});
-		});
+
 
 		try {
 			Thread.sleep(10000);

@@ -15,6 +15,11 @@ import java.util.List;
 @Api(value = "categoriesService", description = "User REST for Integration Testing")
 public interface CategoriesService {
 
+
+    public static String ALLITEBOOKS_URL = "http://www.allitebooks.org/";
+
+    public static String ONEBOOK_URL = "http://www.allitebooks.org/google-app-inventor/";
+
     int insert(Categories categories);
 
     Categories select(Categories categories);
