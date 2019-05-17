@@ -5,10 +5,7 @@ import com.example.demo.api.model.Bookimg;
 import com.example.demo.api.model.Categories;
 import com.example.demo.api.model.Downloadlink;
 import com.example.demo.api.service.*;
-import org.apache.commons.lang3.StringUtils;
-import org.apache.dubbo.common.json.JSON;
 import org.apache.dubbo.config.annotation.Reference;
-import org.jboss.resteasy.client.ClientRequest;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -18,15 +15,12 @@ import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import javax.ws.rs.core.MediaType;
 import java.io.IOException;
 import java.net.SocketTimeoutException;
 import java.net.URL;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 import static java.util.stream.Collectors.toList;
 
@@ -159,25 +153,20 @@ public class SpringbootDubboClientApplicationTests {
 		Categories categories = new Categories();
 		categories.setType(0);
 //		categories.setName("datebases");
-
-
-		try {
-			Thread.sleep(10000);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
+		String result = redisService.addUrl2Redis(categories);
+		System.out.println(result);
 	}
 
-	private List<String> execute(Document doc) {
-		Elements elements = doc.select("h2[class=entry-title] a");
-		List<String> bookUrls = elements.stream().map( Sting -> elements.attr("href")).collect(toList());
-		try {
-			System.out.println(JSON.json(bookUrls));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return bookUrls;
-	}
+//	private List<String> execute(Document doc) {
+//		Elements elements = doc.select("h2[class=entry-title] a");
+//		List<String> bookUrls = elements.stream().map( Sting -> elements.attr("href")).collect(toList());
+//		try {
+//			System.out.println(JSON.json(bookUrls));
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+//		return bookUrls;
+//	}
 
 
 	private Document getDoc(String Url) throws IOException {

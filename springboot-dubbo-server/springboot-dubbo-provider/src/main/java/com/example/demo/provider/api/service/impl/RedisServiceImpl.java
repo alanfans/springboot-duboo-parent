@@ -37,7 +37,7 @@ import java.util.concurrent.TimeUnit;
 import static java.util.stream.Collectors.toList;
 
 
-@Service(async = true)
+@Service
 public class RedisServiceImpl implements RedisService {
     private static Logger log = LoggerFactory.getLogger(RedisServiceImpl.class);
 
@@ -118,7 +118,7 @@ public class RedisServiceImpl implements RedisService {
         return rList.add(url);
     }
 
-    ExecutorService executorService = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
+    ExecutorService executorService = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors()*4);
 
     public String addUrl2Redis(Categories categories){
         List<Categories> categoriesList = categoriesService.selectByType(categories);
@@ -149,6 +149,11 @@ public class RedisServiceImpl implements RedisService {
                     }
                 }
             });
+            try {
+                Thread.sleep(10000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         });
         return "ok";
     }
