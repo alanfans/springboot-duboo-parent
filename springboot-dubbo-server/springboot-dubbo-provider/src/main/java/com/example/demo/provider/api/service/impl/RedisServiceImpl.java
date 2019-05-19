@@ -1,10 +1,12 @@
 package com.example.demo.provider.api.service.impl;
 
+import com.example.demo.api.model.Bookurl;
 import com.example.demo.api.model.Categories;
 import com.example.demo.api.model.DelayJob;
 import com.example.demo.api.model.User;
 import com.example.demo.api.service.CategoriesService;
 import com.example.demo.api.service.RedisService;
+import com.example.demo.provider.dao.BookurlMapper;
 import com.example.demo.provider.redisson.Job;
 import com.example.demo.provider.redisson.JobTimer;
 import io.swagger.util.Json;
@@ -28,6 +30,7 @@ import javax.annotation.Resource;
 import java.io.IOException;
 import java.net.SocketTimeoutException;
 import java.net.URL;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
@@ -37,7 +40,7 @@ import java.util.concurrent.TimeUnit;
 import static java.util.stream.Collectors.toList;
 
 
-@Service
+@Service(async = true)
 public class RedisServiceImpl implements RedisService {
     private static Logger log = LoggerFactory.getLogger(RedisServiceImpl.class);
 
@@ -48,7 +51,8 @@ public class RedisServiceImpl implements RedisService {
     private RedissonClient redissonClient;
     @Autowired
     private CategoriesService categoriesService;
-
+    @Autowired
+    private BookurlMapper bookurlMapper;
 
     public RedisServiceImpl() {
 
@@ -143,6 +147,16 @@ public class RedisServiceImpl implements RedisService {
 //								e.printStackTrace();
 //							}
 //						} );
+                        execute(doc).forEach( url -> {
+                            Bookurl bookurl = new Bookurl();
+                            bookurl.setUrl(url);
+                            bookurl.setCreateBy("1");
+                            bookurl.setUpdateBy("1");
+                            bookurl.setGmtCreate(new Date());
+                            bookurl.setGmtModified(new Date());
+                            bookurl.setIsDelete(0L);
+                            bookurlMapper.insert(bookurl);
+                        });
                     } catch (IOException e) {
                         e.printStackTrace();
                         break;

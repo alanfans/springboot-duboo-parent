@@ -17,8 +17,8 @@ singleServerConfig:
   subscriptionsPerConnection: 5
   subscriptionConnectionMinimumIdleSize: 1
   subscriptionConnectionPoolSize: 50
-  connectionMinimumIdleSize: 4
-  connectionPoolSize: 10
+  connectionMinimumIdleSize: 3
+  connectionPoolSize: 3
   dnsMonitoringInterval: 5000
   #dnsMonitoring: false
 
