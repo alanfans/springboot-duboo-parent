@@ -1,8 +1,10 @@
 package com.example.demo.controller;
 
+import com.example.demo.api.model.Categories;
 import com.example.demo.api.model.User;
 import com.example.demo.api.service.RedisService;
 import com.google.common.collect.Maps;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.dubbo.config.annotation.Reference;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -47,5 +49,19 @@ public class TestRedisController {
         jobParams.put("user",new User(userId,name));
         redisService.submitJob( jobParams,  type, delay, TimeUnit.SECONDS);
         return ResponseEntity.ok("ok");
+    }
+
+    @ResponseBody
+    @PostMapping("/getbookUrl")
+    public ResponseEntity<String> getbookUrl(String booktype){
+        //大类
+        Categories categories = new Categories();
+        categories.setType(0);
+        if(StringUtils.isNoneBlank(booktype)){
+            categories.setName(booktype);
+        }
+        String result = redisService.addUrl2Redis(categories);
+        System.out.println(result);
+        return ResponseEntity.ok(result);
     }
 }
