@@ -5,6 +5,8 @@ import com.example.demo.api.model.Bookimg;
 import com.example.demo.api.model.Categories;
 import com.example.demo.api.model.Downloadlink;
 import com.example.demo.api.service.*;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.dubbo.common.json.JSON;
 import org.apache.dubbo.config.annotation.Reference;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -153,23 +155,52 @@ public class SpringbootDubboClientApplicationTests {
 		Categories categories = new Categories();
 		categories.setType(0);
 //		categories.setName("datebases");
-		String result = redisService.addUrl2Redis(categories);
-		System.out.println(result);
+		List<Categories> categoriesList = categoriesService.selectByType(categories);
+		categoriesList.forEach( categories1 -> {
+				for (Integer i = 1; i < Integer.MAX_VALUE; i++) {
+					String Url = CategoriesService.ALLITEBOOKS_URL + categories1.getName() +"/page/"+i;
+					try {
+						Document doc = getDoc(Url);
+						String no_book = doc.select("h1[class=page-title]").text();
+						if(StringUtils.equals("No Posts Found.",no_book)){
+							break;
+						}
+						//get Url
+						List<String> books_url = execute(doc);
+						System.out.println(JSON.json(books_url));
+					} catch (IOException e) {
+						e.printStackTrace();
+						break;
+					}}
+		});
 	}
 
-//	private List<String> execute(Document doc) {
-//		Elements elements = doc.select("h2[class=entry-title] a");
-//		List<String> bookUrls = elements.stream().map( Sting -> elements.attr("href")).collect(toList());
-//		try {
-//			System.out.println(JSON.json(bookUrls));
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
-//		return bookUrls;
-//	}
+	@Test
+	public void testGEtURL(){
+		String aa = "http://www.allitebooks.org/datebases/page/6/";
+		try {
+			Document document = getDoc(aa);
+			List<String> url = execute(document);
+			System.out.println(JSON.json(url));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		System.out.println();
+	}
+
+	private  List<String> execute(Document doc) {
+		Elements elements = doc.select("h2[class=entry-title] a");
+		List<String> bookUrls = elements.stream().map( stringurl -> stringurl.attr("href")).collect(toList());
+		try {
+			System.out.println(JSON.json(bookUrls));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return bookUrls;
+	}
 
 
-	private Document getDoc(String Url) throws IOException {
+	private  Document getDoc(String Url) throws IOException {
 		try{
 			Document doc = Jsoup.parse(new URL(Url),90000);
 			return doc;
@@ -179,10 +210,4 @@ public class SpringbootDubboClientApplicationTests {
 		return null;
 	}
 
-	public static void main(String[] args) {
-
-		String aa = "http://www.allitebooks.org/web-development/rails/";
-		String[] aas = aa.split("/");
-		System.out.println(aas[4]);
-	}
 }

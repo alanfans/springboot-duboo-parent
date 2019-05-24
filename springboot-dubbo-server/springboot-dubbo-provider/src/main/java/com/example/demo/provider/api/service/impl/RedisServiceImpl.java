@@ -137,19 +137,12 @@ public class RedisServiceImpl implements RedisService {
                             break;
                         }
                         //get Url
-                        execute(doc).forEach( url ->  addUrl2Redis(categories1.getName(),url) );
-//						execute(doc).forEach( url -> {
-//							ClientRequest request = new ClientRequest( "http://127.0.0.1:8082/redisService/addUrl2Redis?type="+categories1.getName()+"&url="+url);
-//							request.accept(MediaType.APPLICATION_FORM_URLENCODED);
-//							try {
-//								request.post(Boolean.class);
-//							} catch (Exception e) {
-//								e.printStackTrace();
-//							}
-//						} );
-                        execute(doc).forEach( url -> {
+                        List<String> books_url = execute(doc);
+                        books_url.forEach( url ->  addUrl2Redis(categories1.getName(),url) );
+                        books_url.forEach( url -> {
                             Bookurl bookurl = new Bookurl();
                             bookurl.setUrl(url);
+                            bookurl.setBak(categories1.getName());
                             bookurl.setCreateBy("1");
                             bookurl.setUpdateBy("1");
                             bookurl.setGmtCreate(new Date());
@@ -175,7 +168,7 @@ public class RedisServiceImpl implements RedisService {
 
     private List<String> execute(Document doc) {
         Elements elements = doc.select("h2[class=entry-title] a");
-        List<String> bookUrls = elements.stream().map( Sting -> elements.attr("href")).collect(toList());
+        List<String> bookUrls = elements.stream().map( bookurl -> bookurl.attr("href")).collect(toList());
         try {
             System.out.println(JSON.json(bookUrls));
         } catch (IOException e) {
