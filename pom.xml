@@ -128,11 +128,11 @@
 				<scope>provided</scope>
 			</dependency>
 
-			<dependency>
-				<groupId>org.apache.curator</groupId>
-				<artifactId>curator-framework</artifactId>
-				<version>${curator.version}</version>
-			</dependency>
+			<!--<dependency>-->
+				<!--<groupId>org.apache.curator</groupId>-->
+				<!--<artifactId>curator-framework</artifactId>-->
+				<!--<version>${curator.version}</version>-->
+			<!--</dependency>-->
 			<dependency>
 				<groupId>org.apache.curator</groupId>
 				<artifactId>curator-recipes</artifactId>
