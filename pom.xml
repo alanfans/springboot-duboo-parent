@@ -32,7 +32,7 @@
 
 		<!-- 在properties中统一控制依赖包的版本，更清晰-->
 		<dubbo.version>2.7.1</dubbo.version>
-		<zk.version>3.4.13</zk.version>
+		<zk.version>3.4.14</zk.version>
 		<lombok.version>1.18.2</lombok.version>
 		<curator.version>4.0.1</curator.version>
 		<dbcp.version>2.5.0</dbcp.version>
