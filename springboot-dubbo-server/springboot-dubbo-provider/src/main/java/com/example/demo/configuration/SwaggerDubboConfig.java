@@ -23,7 +23,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @Configuration
 public class SwaggerDubboConfig {
 
-    @Bean
+
     public Docket adminApi(){
         return new Docket(DocumentationType.SWAGGER_2)
                 .groupName("Admin API")

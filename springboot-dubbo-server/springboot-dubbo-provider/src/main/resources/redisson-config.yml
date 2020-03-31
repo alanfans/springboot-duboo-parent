@@ -1,7 +1,7 @@
 # Redisson-config
 singleServerConfig:
-  address: redis://redis-10457.c1.asia-northeast1-1.gce.cloud.redislabs.com:10457
-  password: vMak1lRyRBt7144gTTWTp7uyVF9uUfzg
+  address: redis://sl-us-south-1-portal.2.dblayer.com:15885
+  password: WQDYGQOJYXBJPLMI
 #  address: redis://192.227.160.174:6379
 #  password: 3SSNKINZs5pn
   clientName: null

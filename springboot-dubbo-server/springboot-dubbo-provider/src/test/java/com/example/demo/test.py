@@ -3,10 +3,10 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.action_chains import ActionChains
 import time
-class Am_auto():
+class Am_static():
 	account = {
-		'email' : 'admin@vps6.win',
-		'passwd' : ':*)?8A2f4Fck',
+		'email':'admin@vps6.win',
+		'passwd': '*)?8A2f4Fck',
 	}
 	em_botton = {
 		'earn' : 'earn_points.php',
@@ -24,9 +24,11 @@ class Am_auto():
 
 	def __init__(self,browerType):
 		if 'chrome' == browerType:
-			self.brower = webdriver.Chrome('E:\Program Files\selenium\chromedriver.exe')
+			# self.brower = webdriver.Chrome('E:\Program Files\selenium\chromedriver.exe')
+			self.brower = webdriver.Chrome('/Users/hylc/Downloads/chromedriver')
 		else:
-			self.brower = webdriver.Firefox(executable_path='E:\Program Files\selenium\geckodriver.exe')
+			#self.brower = webdriver.Firefox(executable_path='E:\Program Files\selenium\geckodriver.exe')
+			self.brower = webdriver.Firefox('/Users/hylc/Downloads/geckodriver')
 
 	def login(self):
 		self.brower.get(self.em_url.get('login'))
@@ -94,7 +96,7 @@ class Am_auto():
 		time.sleep(3)
 		self.checkGV()
 
-test = Am_auto('chrome')
+test = Am_static('chrome')
 test.login()
 test.visite_earn_page_scroll()
 test.checkGV()
