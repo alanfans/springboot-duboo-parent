@@ -153,6 +153,8 @@ public class RedisServiceImpl implements RedisService {
                     } catch (IOException e) {
                         e.printStackTrace();
                         break;
+
+
                     }
                 }
             });
