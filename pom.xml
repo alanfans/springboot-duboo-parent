@@ -42,7 +42,7 @@
 		<swagger-jaxrs.version>1.5.22</swagger-jaxrs.version>
 		<ibm.version>2.1.0</ibm.version>
 		<ibmmq.version>9.1.2.0</ibmmq.version>
-		<resteasy.version>4.5.7.Final</resteasy.version>
+		<resteasy.version>4.6.0.Final</resteasy.version>
 		<httpclient.version>4.5.13</httpclient.version>
 		<yasson.version>1.0.3</yasson.version>
 		<jsoup.version>1.14.2</jsoup.version>
